@@ -1,0 +1,41 @@
+version: "2"
+services:
+
+  lightpay-lit:
+    image: lit
+    restart: always
+    expose:
+      - "8001"
+    volumes:
+      - ./data/lit:/root/.lit
+  
+  lightpay-lit2:
+    image: lit
+    restart: always
+    expose:
+      - "8001"
+    volumes:
+      - ./data/lit2:/root/.lit
+    
+  lightpay-server:
+    image: lightpay-server
+    restart: always
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+
+
+  lightpay-proxy:
+    image: devproxy
+    restart: always
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+        
+
+networks:    
+  default:
+    external:
+      name: litbox-network
